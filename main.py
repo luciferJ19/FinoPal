@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 from tkinter import ttk
 
@@ -24,56 +25,6 @@ if __name__ == '__main__':
     userSavings = tk.IntVar()
     userExpenses = tk.IntVar()
 
-    def backendMainWrapper():
-        backendMain(userName, userAge, userIncome, userDebt, userSavings, userExpenses)
-
-
-    def backendMain(name, age, income, debt, savings, expenses):
-        userNameB = name
-        userAgeB = age
-        userIncomeB = income
-        userDebtB = debt
-        userSavingsB = savings
-        userExpensesB = expenses
-
-        if (userAgeB.get() <= 14):
-            if (userDebtB.get() > 0):
-                finalIncome = userIncomeB.get() - userDebtB.get()
-                if (finalIncome <= 0):
-                    finalIncome += userSavingsB.get()
-                    if (finalIncome <= 0):
-                        #text.config(state="normal")
-                        #text.insert(
-                         #   "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\nYou should invest {} in Stocks,"
-                          #  " {} in secured Bonds, {} in Crypto, {} in Fixed Deposits, put {} in Savings Account and {} to spend".format(
-                           #     userNameB, 0, 0, 0, 0, 0, 0))
-                        #text.config(state="disabled")
-                        print("dfs")
-                    else:
-                        amountStocks = 0
-                        amountBonds = percentageOf(5, finalIncome)
-                        amountCrypto = 0
-                        amountFD = percentageOf(60, finalIncome)
-                        amountSavings = percentageOf(20, finalIncome)
-                        amountExpenses = percentageOf(15, finalIncome)
-                else:
-                    amountStocks = 0
-                    amountBonds = percentageOf(5, finalIncome)
-                    amountCrypto = 0
-                    amountFD = percentageOf(60, finalIncome)
-                    amountSavings = percentageOf(20, finalIncome)
-                    amountExpenses = percentageOf(15, finalIncome)
-        elif (userAgeB > 14 and userAgeB < 18):
-            x = 0  # code to be defined
-        elif (userAgeB >= 18 and userAgeB <= 28):
-            x = 0  # code to be defined
-        elif (userAgeB > 28 and userAgeB <= 50):
-            x = 0  # code to be defined
-        elif (userAgeB > 50 and userAgeB <= 65):
-            x = 0  # code to be defined
-        elif (userAgeB > 65):
-            x = 0  # code to be defined
-
     frameName = tk.Frame(root)
     frameName.pack(side="top", anchor= "w", padx = 10, pady=50)
 
@@ -97,6 +48,198 @@ if __name__ == '__main__':
 
     frameOutput = tk.Frame(root)
     frameOutput.pack(side = "top", anchor="w", padx=55, pady=20)
+
+    outputLabel = tk.Label(frameOutput, font=20, padx=10, pady=5, bg="white", fg="red")
+    outputLabel.pack(side="left")
+
+    def backendMain():
+        if (userAge.get() <= 14):
+            if (userDebt.get() > 0):
+                finalIncome = userIncome.get() - userDebt.get()
+                if (finalIncome <= 0):
+                    finalIncome += userSavings.get()
+                    if (finalIncome <= 0):
+                        outputLabel.config(text=
+                                           "Hello there,{}, It's wise for you to settle your previous debts first".format(
+                                               userName.get()))
+                    else:
+                        amountStocks = 0
+                        amountBonds = percentageOf(5, finalIncome)
+                        amountCrypto = 0
+                        amountFD = percentageOf(60, finalIncome)
+                        amountSavings = percentageOf(20, finalIncome)
+                        amountExpenses = percentageOf(15, finalIncome)
+                        outputLabel.config(text=
+                        "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                        "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                            userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings, amountExpenses))
+                else:
+                    amountStocks = 0
+                    amountBonds = percentageOf(5, finalIncome)
+                    amountCrypto = 0
+                    amountFD = percentageOf(60, finalIncome)
+                    amountSavings = percentageOf(20, finalIncome)
+                    amountExpenses = percentageOf(15, finalIncome)
+                    outputLabel.config(text=
+                    "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                    "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                        userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings,
+                        amountExpenses))
+        elif (userAge.get() > 14 and userAge.get() < 18):
+            if (userDebt.get() > 0):
+                finalIncome = userIncome.get() - userDebt.get()
+                if (finalIncome <= 0):
+                    finalIncome += userSavings.get()
+                    if (finalIncome <= 0):
+                        outputLabel.config(text=
+                            "Hello there,{}, It's wise for you to settle your previous debts first".format(userName.get()))
+                    else:
+                        amountStocks = percentageOf(10, finalIncome)
+                        amountBonds = percentageOf(25, finalIncome)
+                        amountCrypto = percentageOf(5, finalIncome)
+                        amountFD = percentageOf(25, finalIncome)
+                        amountSavings = percentageOf(20, finalIncome)
+                        amountExpenses = percentageOf(15, finalIncome)
+                        outputLabel.config(text=
+                        "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                        "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                            userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings, amountExpenses))
+                else:
+                    amountStocks = percentageOf(10, finalIncome)
+                    amountBonds = percentageOf(25, finalIncome)
+                    amountCrypto = percentageOf(5, finalIncome)
+                    amountFD = percentageOf(25, finalIncome)
+                    amountSavings = percentageOf(20, finalIncome)
+                    amountExpenses = percentageOf(15, finalIncome)
+                    outputLabel.config(text=
+                    "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                    "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                        userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings,
+                        amountExpenses))
+        elif (userAge.get() >= 18 and userAge.get() <= 28):
+            if (userDebt.get() > 0):
+                finalIncome = userIncome.get() - userDebt.get()
+                if (finalIncome <= 0):
+                    finalIncome += userSavings.get()
+                    if (finalIncome <= 0):
+                        outputLabel.config(text=
+                            "Hello there,{}, It's wise for you to settle your previous debts first".format(userName.get()))
+                    else:
+                        amountStocks = percentageOf(30, finalIncome)
+                        amountBonds = percentageOf(25, finalIncome)
+                        amountCrypto = percentageOf(15, finalIncome)
+                        amountFD = percentageOf(15, finalIncome)
+                        amountSavings = percentageOf(5, finalIncome)
+                        amountExpenses = percentageOf(10, finalIncome)
+                        outputLabel.config(text=
+                        "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                        "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                            userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings, amountExpenses))
+                else:
+                    amountStocks = percentageOf(30, finalIncome)
+                    amountBonds = percentageOf(25, finalIncome)
+                    amountCrypto = percentageOf(15, finalIncome)
+                    amountFD = percentageOf(15, finalIncome)
+                    amountSavings = percentageOf(5, finalIncome)
+                    amountExpenses = percentageOf(10, finalIncome)
+                    outputLabel.config(text=
+                    "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                    "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                        userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings,
+                        amountExpenses))
+        elif (userAge.get() > 28 and userAge.get() <= 50):
+            if (userDebt.get() > 0):
+                finalIncome = userIncome.get() - userDebt.get()
+                if (finalIncome <= 0):
+                    finalIncome += userSavings.get()
+                    if (finalIncome <= 0):
+                        outputLabel.config(text=
+                            "Hello there,{}, It's wise for you to settle your previous debts first".format(userName.get()))
+                    else:
+                        amountStocks = percentageOf(25, finalIncome)
+                        amountBonds = percentageOf(30, finalIncome)
+                        amountCrypto = percentageOf(10, finalIncome)
+                        amountFD = percentageOf(15, finalIncome)
+                        amountSavings = percentageOf(10, finalIncome)
+                        amountExpenses = percentageOf(10, finalIncome)
+                        outputLabel.config(text=
+                        "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                        "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                            userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings, amountExpenses))
+                else:
+                    amountStocks = percentageOf(25, finalIncome)
+                    amountBonds = percentageOf(30, finalIncome)
+                    amountCrypto = percentageOf(10, finalIncome)
+                    amountFD = percentageOf(15, finalIncome)
+                    amountSavings = percentageOf(10, finalIncome)
+                    amountExpenses = percentageOf(10, finalIncome)
+                    outputLabel.config(text=
+                    "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                    "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                        userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings,
+                        amountExpenses))
+        elif (userAge.get() > 50 and userAge.get() <= 65):
+            if (userDebt.get() > 0):
+                finalIncome = userIncome.get() - userDebt.get()
+                if (finalIncome <= 0):
+                    finalIncome += userSavings.get()
+                    if (finalIncome <= 0):
+                        outputLabel.config(text=
+                            "Hello there,{}, It's wise for you to settle your previous debts first".format(userName.get()))
+                    else:
+                        amountStocks = percentageOf(15, finalIncome)
+                        amountBonds = percentageOf(20, finalIncome)
+                        amountCrypto = percentageOf(5, finalIncome)
+                        amountFD = percentageOf(40, finalIncome)
+                        amountSavings = percentageOf(5, finalIncome)
+                        amountExpenses = percentageOf(15, finalIncome)
+                        outputLabel.config(text=
+                        "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                        "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                            userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings, amountExpenses))
+                else:
+                    amountStocks = percentageOf(15, finalIncome)
+                    amountBonds = percentageOf(20, finalIncome)
+                    amountCrypto = percentageOf(5, finalIncome)
+                    amountFD = percentageOf(40, finalIncome)
+                    amountSavings = percentageOf(5, finalIncome)
+                    amountExpenses = percentageOf(15, finalIncome)
+                    outputLabel.config(text=
+                    "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                    "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                        userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings,
+                        amountExpenses))
+        elif (userAge.get() > 65):
+            if (userDebt.get() > 0):
+                finalIncome = userIncome.get() - userDebt.get()
+                if (finalIncome <= 0):
+                    finalIncome += userSavings.get()
+                    if (finalIncome <= 0):
+                        outputLabel.config(text=
+                            "Hello there,{}, It's wise for you to settle your previous debts first".format(userName.get()))
+                    else:
+                        amountStocks = percentageOf(10, finalIncome)
+                        amountBonds = percentageOf(15, finalIncome)
+                        amountCrypto = percentageOf(0, finalIncome)
+                        amountFD = percentageOf(35, finalIncome)
+                        amountSavings = percentageOf(20, finalIncome)
+                        amountExpenses = percentageOf(20, finalIncome)
+                        outputLabel.config(text=
+                        "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                        "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                            userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings, amountExpenses))
+                else:
+                    amountStocks = percentageOf(10, finalIncome)
+                    amountBonds = percentageOf(15, finalIncome)
+                    amountCrypto = percentageOf(0, finalIncome)
+                    amountFD = percentageOf(35, finalIncome)
+                    amountSavings = percentageOf(20, finalIncome)
+                    amountExpenses = percentageOf(20, finalIncome)
+                    outputLabel.config(text=
+                    "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\n"
+                    "You should invest Rs.{} in Stocks, Rs.{} in secured Bonds, Rs.{} in Crypto, Rs.{} in Fixed Deposits, put Rs.{} in Savings Account and Rs.{} to spend".format(
+                        userName.get(), amountStocks, amountBonds, amountCrypto, amountFD, amountSavings,
+                        amountExpenses))
 
     nameLabel = tk.Label(frameName, text= "NAME: ", padx=10, pady = 10, bg = "grey", fg = "black")
     nameLabel.pack(side = "left")
@@ -128,15 +271,10 @@ if __name__ == '__main__':
     expensesEntry = tk.Entry(frameExpenses, width=10, textvariable=userExpenses)
     expensesEntry.pack(side="left", padx=10)
 
-    buttonSubmit = tk.Button(frameButtons, text="Submit", bg="black", fg= "white", command=backendMainWrapper)
+    buttonSubmit = tk.Button(frameButtons, text="Submit", bg="black", fg= "white", command=backendMain)
     buttonSubmit.pack(side="left", padx=10)
     buttonQuit = tk.Button(frameButtons, text ="Quit", bg = "red", fg="white", command=root.destroy)
     buttonQuit.pack(side="left", padx=100)
-
-    #outputLabel = tk.Label(frameOutput, text="dfas", padx=10, pady=5, bg="white", fg="red")
-    #outputLabel.pack(side="left")
-    #textOutput = tk.Text(frameOutput, padx =10, pady=5, bg="white", fg = "yellow", height=5, state="disabled")
-    #textOutput.pack(side="left")
 
     nameEntry.insert(0, "Enter Your Name")
 
