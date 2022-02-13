@@ -1,27 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
 
-def backendMain(name, age, income, debt, savings, expenses):
-    userNameB = name
-    userAgeB = age
-    userIncome = income
-    userDebt = debt
-    userSavings = savings
-    userExpenses = expenses
+def percentageOf(rate, total):
+    return int((rate*total)/100)
 
-    if (userAge <= 14):
-        x = 0  #code to be defined
-    elif (userAge > 14 and userAge < 18):
-        x = 0  # code to be defined
-    elif (userAge >= 18 and userAge <=28):
-        x = 0  # code to be defined
-    elif (userAge > 28 and userAge <= 50):
-        x = 0  # code to be defined
-    elif (userAge > 50 and userAge <=65):
-        x = 0  # code to be defined
-    elif (userAge > 65):
-        x = 0  # code to be defined
-
+userName = 0
+userAge = 0
+userIncome = 0
+userDebt = 0
+userSavings = 0
+userExpenses = 0
 
 if __name__ == '__main__':
 
@@ -35,6 +23,56 @@ if __name__ == '__main__':
     userDebt = tk.IntVar()
     userSavings = tk.IntVar()
     userExpenses = tk.IntVar()
+
+    def backendMainWrapper():
+        backendMain(userName, userAge, userIncome, userDebt, userSavings, userExpenses)
+
+
+    def backendMain(name, age, income, debt, savings, expenses):
+        userNameB = name
+        userAgeB = age
+        userIncomeB = income
+        userDebtB = debt
+        userSavingsB = savings
+        userExpensesB = expenses
+
+        if (userAgeB.get() <= 14):
+            if (userDebtB.get() > 0):
+                finalIncome = userIncomeB.get() - userDebtB.get()
+                if (finalIncome <= 0):
+                    finalIncome += userSavingsB.get()
+                    if (finalIncome <= 0):
+                        #text.config(state="normal")
+                        #text.insert(
+                         #   "Hello there,{}, We are here with a complete roadmap to your financial security and integrity\nYou should invest {} in Stocks,"
+                          #  " {} in secured Bonds, {} in Crypto, {} in Fixed Deposits, put {} in Savings Account and {} to spend".format(
+                           #     userNameB, 0, 0, 0, 0, 0, 0))
+                        #text.config(state="disabled")
+                        print("dfs")
+                    else:
+                        amountStocks = 0
+                        amountBonds = percentageOf(5, finalIncome)
+                        amountCrypto = 0
+                        amountFD = percentageOf(60, finalIncome)
+                        amountSavings = percentageOf(20, finalIncome)
+                        amountExpenses = percentageOf(15, finalIncome)
+                else:
+                    amountStocks = 0
+                    amountBonds = percentageOf(5, finalIncome)
+                    amountCrypto = 0
+                    amountFD = percentageOf(60, finalIncome)
+                    amountSavings = percentageOf(20, finalIncome)
+                    amountExpenses = percentageOf(15, finalIncome)
+        elif (userAgeB > 14 and userAgeB < 18):
+            x = 0  # code to be defined
+        elif (userAgeB >= 18 and userAgeB <= 28):
+            x = 0  # code to be defined
+        elif (userAgeB > 28 and userAgeB <= 50):
+            x = 0  # code to be defined
+        elif (userAgeB > 50 and userAgeB <= 65):
+            x = 0  # code to be defined
+        elif (userAgeB > 65):
+            x = 0  # code to be defined
 
     frameName = tk.Frame(root)
     frameName.pack(side="top", anchor= "w", padx = 10, pady=50)
@@ -56,6 +94,9 @@ if __name__ == '__main__':
 
     frameButtons = tk.Frame(root)
     frameButtons.pack(side ="top", anchor="w", padx=10, pady=40)
+
+    frameOutput = tk.Frame(root)
+    frameOutput.pack(side = "top", anchor="w", padx=55, pady=20)
 
     nameLabel = tk.Label(frameName, text= "NAME: ", padx=10, pady = 10, bg = "grey", fg = "black")
     nameLabel.pack(side = "left")
@@ -87,10 +128,15 @@ if __name__ == '__main__':
     expensesEntry = tk.Entry(frameExpenses, width=10, textvariable=userExpenses)
     expensesEntry.pack(side="left", padx=10)
 
-    buttonSubmit = tk.Button(frameButtons, text="Submit", bg="black", fg= "white")
+    buttonSubmit = tk.Button(frameButtons, text="Submit", bg="black", fg= "white", command=backendMainWrapper)
     buttonSubmit.pack(side="left", padx=10)
     buttonQuit = tk.Button(frameButtons, text ="Quit", bg = "red", fg="white", command=root.destroy)
     buttonQuit.pack(side="left", padx=100)
+
+    #outputLabel = tk.Label(frameOutput, text="dfas", padx=10, pady=5, bg="white", fg="red")
+    #outputLabel.pack(side="left")
+    #textOutput = tk.Text(frameOutput, padx =10, pady=5, bg="white", fg = "yellow", height=5, state="disabled")
+    #textOutput.pack(side="left")
 
     nameEntry.insert(0, "Enter Your Name")
 
